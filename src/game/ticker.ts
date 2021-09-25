@@ -1,8 +1,8 @@
 
-
+let startTime = Date.now()
 function handleFrame() {
-  tickers.forEach(ticker => ticker())
-
+  tickers.forEach(ticker => ticker(Date.now() - startTime))
+  startTime = Date.now()
   requestAnimationFrame(handleFrame)
 }
 
