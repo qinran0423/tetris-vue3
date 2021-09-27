@@ -22,7 +22,7 @@ export function startGame(map) {
   const isDown = intervalTimer(timeInterval)
   function handlerTicker(n) {
     if (isDown(n)) {
-      boxDown(box)
+      moveDown(box, map)
     }
     render(box, map)
   }
@@ -37,12 +37,17 @@ export function startGame(map) {
 }
 
 
-export function boxDown(box) {
+export function moveDown(box, map) {
+  const mapRow = map.length
+
   // 1.获取box底部的所有的点
   const points = getBottomPoints(box.shape)
 
-  const boo = points.some((point) => point.y + box.y + 1 >= gameRow)
+  const boo = points.some((point) => point.y + box.y + 1 >= mapRow)
   // 2.检测是不是🈶某个点超出了游戏范围 
 
+  if (boo) return
+
   box.y++
+
 }
