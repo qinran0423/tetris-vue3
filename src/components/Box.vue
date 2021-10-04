@@ -10,6 +10,7 @@ const props = defineProps(["type"]);
 const typeToColor: any = {
   [0]: "grey",
   [1]: "#f66",
+  [-1]: "#f66",
 };
 
 const color = computed(() => typeToColor[props.type]);

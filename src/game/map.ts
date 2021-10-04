@@ -13,3 +13,15 @@ export function initmap(map) {
   }
 
 }
+
+
+export function addboxToMap(box, map) {
+  for (let i = 0; i < box.shape.length; i++) {
+    for (let j = 0; j < box.shape[0].length; j++) {
+      const row = i + box.y;
+      const col = j + box.x;
+
+      map[row][col] = -1
+    }
+  }
+}

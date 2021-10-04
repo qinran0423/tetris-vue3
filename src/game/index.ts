@@ -1,19 +1,20 @@
 export * from './config'
 
 import { Box } from './box'
-import { gameRow } from './config'
-import { initmap } from './map'
-import { getBottomPoints } from './matrix'
+import { hitBottomBoundary, hitBottomBox } from './hit'
+import { addboxToMap, initmap } from './map'
 import { render } from './renderer'
 import { addTicker } from './ticker'
 import { intervalTimer } from './utils'
 
+
+let activeBox;
 export function startGame(map) {
   initmap(map)
-  const box = new Box()
+  activeBox = new Box()
 
-  box.x = 3;
-  box.y = 3;
+  activeBox.x = 1;
+  activeBox.y = 1;
 
   // 1秒执行一次
   let t = 0;
@@ -22,15 +23,15 @@ export function startGame(map) {
   const isDown = intervalTimer(timeInterval)
   function handlerTicker(n) {
     if (isDown(n)) {
-      moveDown(box, map)
+      moveDown(activeBox, map)
     }
-    render(box, map)
+    render(activeBox, map)
   }
 
   addTicker(handlerTicker)
 
   window.addEventListener('keydown', () => {
-    box.y++
+    // box.y++
     console.log('keydown');
   })
 
@@ -38,15 +39,18 @@ export function startGame(map) {
 
 
 export function moveDown(box, map) {
-  const mapRow = map.length
 
-  // 1.获取box底部的所有的点
-  const points = getBottomPoints(box.shape)
 
-  const boo = points.some((point) => point.y + box.y + 1 >= mapRow)
   // 2.检测是不是🈶某个点超出了游戏范围 
 
-  if (boo) return
+  if (hitBottomBoundary(box, map) || hitBottomBox(box, map)) {
+    addboxToMap(box, map)
+
+    // 碰撞了底部需要一个新的box
+    activeBox = new Box()
+
+    return
+  }
 
   box.y++
 
