@@ -1,8 +1,8 @@
 export * from './config'
 
-import { Box } from './box'
+import { createBox } from './box'
 import { hitBottomBoundary, hitBottomBox } from './hit'
-import { addboxToMap, initmap } from './map'
+import { addboxToMap, eliminateLine, initmap } from './map'
 import { render } from './renderer'
 import { addTicker } from './ticker'
 import { intervalTimer } from './utils'
@@ -11,13 +11,12 @@ import { intervalTimer } from './utils'
 let activeBox;
 export function startGame(map) {
   initmap(map)
-  activeBox = new Box()
+  activeBox = createBox()
 
   activeBox.x = 1;
   activeBox.y = 1;
 
   // 1秒执行一次
-  let t = 0;
   let timeInterval = 1000;
 
   const isDown = intervalTimer(timeInterval)
@@ -30,9 +29,19 @@ export function startGame(map) {
 
   addTicker(handlerTicker)
 
-  window.addEventListener('keydown', () => {
+  window.addEventListener('keydown', (e) => {
     // box.y++
-    console.log('keydown');
+    switch (e.code) {
+      case "ArrowLeft":
+        activeBox.x--;
+        break;
+
+      case "ArrowRight":
+        activeBox.x++;
+        break;
+      default:
+        break;
+    }
   })
 
 }
@@ -46,8 +55,9 @@ export function moveDown(box, map) {
   if (hitBottomBoundary(box, map) || hitBottomBox(box, map)) {
     addboxToMap(box, map)
 
+    eliminateLine(map)
     // 碰撞了底部需要一个新的box
-    activeBox = new Box()
+    activeBox = createBox()
 
     return
   }
