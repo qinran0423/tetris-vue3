@@ -20,6 +20,3 @@ startGame(map);
   display: flex;
 }
 </style>
-
-function reactive(arg0: never[]) { throw new Error("Function not implemented.");
-}
