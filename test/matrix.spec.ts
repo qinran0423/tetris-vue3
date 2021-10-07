@@ -1,5 +1,5 @@
 
-import { getBottomPoints } from '../src/game/matrix'
+import { getBottomPoints, rotate } from '../src/game/matrix'
 test('should return bottom points', () => {
   const matrix = [
     [1, 1],
@@ -15,5 +15,36 @@ test('should return bottom points', () => {
       x: 1,
       y: 1
     }
+  ])
+})
+
+
+test('should return bottom points x 形状的box', () => {
+  const matrix = [
+    [1, 0, 0],
+    [1, 1, 0],
+    [0, 1, 0],
+  ]
+
+  expect(getBottomPoints(matrix)).toEqual([
+    {
+      x: 1,
+      y: 2
+    }
+  ])
+})
+
+
+test('rotate', () => {
+  const matrix = [
+    [1, 0, 0],
+    [1, 1, 0],
+    [0, 1, 0],
+  ]
+  // 逆时针 -90度
+  expect(rotate(matrix)).toEqual([
+    [0, 0, 0],
+    [0, 1, 1],
+    [1, 1, 0]
   ])
 })

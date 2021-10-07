@@ -13,8 +13,8 @@ export function startGame(map) {
   initmap(map)
   activeBox = createBox()
 
-  activeBox.x = 1;
-  activeBox.y = 1;
+  activeBox.x = 0;
+  activeBox.y = 0;
 
   // 1秒执行一次
   let timeInterval = 1000;
@@ -38,6 +38,10 @@ export function startGame(map) {
 
       case "ArrowRight":
         activeBox.x++;
+        break;
+
+      case "ArrowUp":
+        activeBox.rotate()
         break;
       default:
         break;
