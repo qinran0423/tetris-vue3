@@ -11,7 +11,7 @@ export function initmap(map) {
     }
     map.push(arr);
   }
-
+  return map
 }
 
 

@@ -66,8 +66,8 @@ export function createBox() {
   const box = new Box()
 
   const max = Object.keys(boxInfos).length
-  // const type = Math.floor(Math.random() * max) + 1 // 随机
-  const type = 3// 随机
+  const type = Math.floor(Math.random() * max) + 1 // 随机
+  // const type = 3// 随机
 
   const { shape, rotateStrategy } = boxInfos[type]
   box.shape = shape

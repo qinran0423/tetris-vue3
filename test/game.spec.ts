@@ -1,5 +1,5 @@
 import { Box } from '../src/game/box'
-import { moveDown } from '../src/game/index'
+import { Game } from '../src/game/Game'
 
 test('moveDown', () => {
   const map = [
@@ -16,13 +16,16 @@ test('moveDown', () => {
     [1, 1]
   ]
   box.y = 0
-  moveDown(box, map)
+
+  const game = new Game(box, map)
+
+  game.moveDown()
   expect(box.y).toBe(1)
 
-  moveDown(box, map)
+  game.moveDown()
   expect(box.y).toBe(2)
 
-  moveDown(box, map)
+  game.moveDown()
   expect(box.y).toBe(2)
 
   expect(map).toEqual([
@@ -48,7 +51,8 @@ test('moveDown when hit other box', () => {
     [1, 1]
   ]
   box.y = 0
-  moveDown(box, map)
+  const game = new Game(box, map)
+  game.moveDown()
   expect(box.y).toBe(0)
   expect(map).toEqual([
     [-1, -1, 0, 0, 0],
@@ -73,8 +77,8 @@ test('消除', () => {
     [1, 1]
   ]
   box.y = 2
-
-  moveDown(box, map)
+  const game = new Game(box, map)
+  game.moveDown()
   expect(box.y).toBe(2)
   expect(map).toEqual([
     [0, 0, 0, 0],
@@ -100,7 +104,8 @@ test('z 形状的box渲染', () => {
     [0, 1, 0]
   ]
   box.y = 1
-  moveDown(box, map)
+  const game = new Game(box, map)
+  game.moveDown()
   expect(box.y).toBe(1)
 
   expect(map).toEqual([
@@ -130,7 +135,8 @@ test('z 形状的box碰撞到了z形状的box', () => {
     [0, 1, 0]
   ]
   box.y = 0
-  moveDown(box, map)
+  const game = new Game(box, map)
+  game.moveDown()
   expect(box.y).toBe(1)
 
   // expect(map).toEqual([
