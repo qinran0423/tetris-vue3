@@ -14,50 +14,28 @@ export class Game {
     this._activeBox = box
   }
 
-
   start() {
-
     this._activeBox = createBox()
-
-    // activeBox.x = 0;
-    // activeBox.y = 0;
-
-
-
     addTicker(this.handlerTicker.bind(this))
-
-    window.addEventListener('keydown', this.handleKeydown.bind(this))
   }
-  handleKeydown(e) {
-    switch (e.code) {
-      case "ArrowLeft":
-        this._activeBox.x--;
-        break;
-
-      case "ArrowRight":
-        this._activeBox.x++;
-        break;
-
-      case "ArrowUp":
-        this._activeBox.rotate()
-        break;
-      default:
-        break;
-    }
-  }
-
   // 1秒执行一次
-  timeInterval = 1000;
-  _isDown = intervalTimer(this.timeInterval)
   handlerTicker(n) {
-    if (this._isDown(n)) {
-      this.moveDown()
-    }
     render(this._activeBox, this._map)
   }
 
-  moveDown() {
+  moveBoxToLeft() {
+    this._activeBox.x--
+  }
 
+  moveBoxToRight() {
+    this._activeBox.x++
+  }
+
+  rotateBox() {
+    this._activeBox.rotate()
+  }
+
+  moveBoxToDown() {
 
     // 2.检测是不是🈶某个点超出了游戏范围 
 

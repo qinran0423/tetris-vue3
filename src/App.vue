@@ -11,11 +11,11 @@ function start() {
   <div style="display: flex">
     <div>
       自己
-      <Game></Game>
+      <Game type="self"></Game>
     </div>
     <div>
       对手
-      <Game></Game>
+      <Game type="rival"></Game>
     </div>
     <button @click="start">startGame</button>
   </div>
